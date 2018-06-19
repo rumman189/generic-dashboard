@@ -64,7 +64,7 @@ echo
 ## Default: Commit skipped|forgotten
 
 # 2018.May26
-git commit -m  "Notification Popup"
+git commit -m  "invoice and user done"
 
 
 ############
