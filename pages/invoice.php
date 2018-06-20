@@ -153,7 +153,7 @@ include './menu_left.php';
         <div id="thanks">Thank you!</div>
         <form method="post" action="send_mail.php">
             
-        <h5><b>send invoice to email :</b><b> rumman3000@gmail.com</b> <span><input type="submit" value="Send Email"></button></span></h5>
+        <h5><b>send invoice to email :</b><b> rumman3000@gmail.com</b> <span><input type="submit" value="Send Email" onclick="alert('mail sent!')"></button></span></h5>
 </form>
 <br>
         <div id="notices">
