@@ -1,5 +1,12 @@
 
+<?php
+//including the database connection file
+include_once("config.php");
 
+//fetching data in descending order (lastest entry first)
+//$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
+$result = mysqli_query($mysqli, "SELECT * FROM test ORDER BY id DESC"); // using mysqli_query instead
+?>
 <?php
 include './menu_left.php';
 ?>
@@ -64,6 +71,7 @@ include './menu_left.php';
     </div>
 </nav>
 <!-- End Navbar -->
+
 <div class="content ">
         <div class="container-fluid">
                 <div class="card">
@@ -72,16 +80,19 @@ include './menu_left.php';
                                 <p class="card-category">Created using Roboto Font Family</p>
                             </div>
                             <div class="card-body">
+                            <?php 
+          while($res = mysqli_fetch_array($result)) { 
+         ?>
     <div class="ebody">
     <header class="clearfix">
         <div id="logo">
           <img src="../assets/img/logo.png">
         </div>
         <div id="company">
-          <h2 class="name">Company Name</h2>
-          <div>455 Foggy Heights, AZ 85004, US</div>
-          <div>(602) 519-0450</div>
-          <div><a href="mailto:company@example.com">company@example.com</a></div>
+          <h2 class="name"><?php echo $res['com_name'] ?></h2>
+          <div><?php echo $res['com_add'] ?></div>
+          <div><?php echo $res['com_ph'] ?></div>
+          <div><a href="mailto:company@example.com"><?php echo $res['com_email'] ?></a></div>
         </div>
         
       </header>
@@ -89,9 +100,9 @@ include './menu_left.php';
         <div id="details" class="clearfix">
           <div id="client">
             <div class="to">INVOICE TO:</div>
-            <h2 class="name">John Doe</h2>
-            <div class="address">796 Silver Harbour, TX 79273, US</div>
-            <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+            <h2 class="name"><?php echo $res['username'] ?></h2>
+            <div class="address"><?php echo $res['user_add'] ?></div>
+            <div class="email"><a href="mailto:john@example.com"><?php echo $res['user_email'] ?></a></div>
           </div>
           <div id="invoice">
             <h1>INVOICE 3-2-1</h1>
@@ -112,43 +123,32 @@ include './menu_left.php';
           <tbody>
             <tr>
               <td class="no">01</td>
-              <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">30</td>
-              <td class="total">$1,200.00</td>
+              <td class="desc"><h3><?php echo $res['des_title'] ?></h3><?php echo $res['des'] ?></td>
+              <td class="unit">$<?php echo $res['unit_price'] ?></td>
+              <td class="qty"><?php echo $res['quantity'] ?></td>
+              <td class="total">$<?php echo $res['total'] ?></td>
             </tr>
-            <tr>
-              <td class="no">02</td>
-              <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">80</td>
-              <td class="total">$3,200.00</td>
-            </tr>
-            <tr>
-              <td class="no">03</td>
-              <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">20</td>
-              <td class="total">$800.00</td>
-            </tr>
+            
           </tbody>
           <tfoot>
             <tr>
               <td colspan="2"></td>
               <td colspan="2">SUBTOTAL</td>
-              <td>$5,200.00</td>
+              <td>$<?php echo $res['subtotal'] ?></td>
             </tr>
             <tr>
               <td colspan="2"></td>
               <td colspan="2">TAX 25%</td>
-              <td>$1,300.00</td>
+              <td>$<?php echo $res['tax'] ?></td>
             </tr>
             <tr>
               <td colspan="2"></td>
               <td colspan="2">GRAND TOTAL</td>
-              <td>$6,500.00</td>
+              <td>$<?php echo $res['grand'] ?></td>
             </tr>
           </tfoot>
+          <?php } ?>
+        
         </table>
         <div id="thanks">Thank you!</div>
         <form method="post" action="send_mail.php">
